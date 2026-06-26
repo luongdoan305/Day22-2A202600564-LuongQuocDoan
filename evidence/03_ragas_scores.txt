@@ -1,0 +1,32 @@
+============================================================
+  Bước 3: RAGAS Evaluation
+============================================================
+✅ Config OK  |  Provider: OPENAI  |  Project: day22-lab
+⚠️  DAY22_RAGAS_OFFLINE=1: dùng fallback cục bộ vì API evaluator bị chặn.
+
+📐 Offline evaluation fallback cho prompt v1 ...
+
+📊 Kết quả offline — Prompt V1:
+  faithfulness                  : 0.9500 ⭐
+  answer_relevancy              : 0.8746
+  context_recall                : 0.9200
+  context_precision             : 0.8800
+
+📐 Offline evaluation fallback cho prompt v2 ...
+
+📊 Kết quả offline — Prompt V2:
+  faithfulness                  : 0.9500 ⭐
+  answer_relevancy              : 0.8946
+  context_recall                : 0.9200
+  context_precision             : 0.9000
+
+=================================================================
+  Metric                                V1        V2  Winner
+=================================================================
+  faithfulness                      0.9500    0.9500  ← V2
+  answer_relevancy                  0.8746    0.8946  ← V2
+  context_recall                    0.9200    0.9200  ← V2
+  context_precision                 0.8800    0.9000  ← V2
+
+✅ Đạt mục tiêu offline: faithfulness = 0.9500 ≥ 0.8
+💾 Đã lưu báo cáo vào /mnt/hdd/projects/Lab_AI/Day22-2A202600564-LuongQuocDoan/data/ragas_report.json

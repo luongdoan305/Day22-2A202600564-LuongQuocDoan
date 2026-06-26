@@ -52,6 +52,13 @@ LANGSMITH_API_KEY = os.getenv("LANGCHAIN_API_KEY", "")
 LANGSMITH_PROJECT = os.getenv("LANGCHAIN_PROJECT", "day22-lab")
 
 
+def _is_missing(value: str, placeholders: tuple[str, ...] = ()) -> bool:
+    """Return True for empty values or template placeholders from .env.example."""
+    if not value:
+        return True
+    return value.startswith("your_") or value in placeholders
+
+
 def validate() -> bool:
     """
     Kiểm tra các biến môi trường bắt buộc đã được cấu hình.
@@ -59,16 +66,16 @@ def validate() -> bool:
     """
     missing = []
 
-    if not LANGSMITH_API_KEY:
+    if _is_missing(LANGSMITH_API_KEY, ("lsv2_...",)):
         missing.append("LANGCHAIN_API_KEY (LangSmith)")
 
-    if PROVIDER == "openai" and not OPENAI_API_KEY:
+    if PROVIDER == "openai" and _is_missing(OPENAI_API_KEY, ("sk-...",)):
         missing.append("OPENAI_API_KEY")
-    elif PROVIDER == "gemini" and not GOOGLE_API_KEY:
+    elif PROVIDER == "gemini" and _is_missing(GOOGLE_API_KEY, ("AIza...",)):
         missing.append("GOOGLE_API_KEY")
-    elif PROVIDER == "anthropic" and not ANTHROPIC_API_KEY:
+    elif PROVIDER == "anthropic" and _is_missing(ANTHROPIC_API_KEY, ("sk-ant-...",)):
         missing.append("ANTHROPIC_API_KEY")
-    elif PROVIDER == "openrouter" and not OPENROUTER_API_KEY:
+    elif PROVIDER == "openrouter" and _is_missing(OPENROUTER_API_KEY, ("sk-or-...",)):
         missing.append("OPENROUTER_API_KEY")
     # Ollama: không cần API key
 
